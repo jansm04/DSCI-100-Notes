@@ -283,9 +283,9 @@ marathon |>
 #  - slice() keeps the nth row
 
 # Ex:
-marathon |> head(n = 10) # keeps the first 10 rows
-marathon |> tail(n = 10) # keeps the last 10 rows
-marathon |> slice(n = 10) # keeps the 10th row
+marathon |> head(10) # keeps the first 10 rows
+marathon |> tail(10) # keeps the last 10 rows
+marathon |> slice(10) # keeps the 10th row
 
 
 
