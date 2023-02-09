@@ -283,14 +283,15 @@ diamonds |>
 insurance |>
   ggplot(aes(x = bmi, fill = as_factor(children))) +
   geom_histogram(binwidth = 5) +
-  labs(x = "BMI", fill = "# of Children")
+  labs(x = "BMI", fill = "# of Children") +
+  scale_fill_brewer(palette = 'YlOrRd')
 # as_factor() function
 # no position = "identity" -> groups of bars are stacked
 
 # Ex 5:
 insurance |>
   ggplot(aes(x = bmi, fill = as_factor(children))) +
-  geom_histogram(binwidth = 5, position = "identity") +
+  geom_histogram(alpha = 0.5, binwidth = 5, position = "identity") +
   labs(x = "BMI", fill = "# of Children")
 # as_factor() function
 # with position = "identity" -> groups of bars overlap
@@ -316,6 +317,57 @@ insurance |>
   facet_grid(cols = vars(children)) +
   labs(x = "BMI", fill = "# of Children")
 # Multiple plots differing in # of children, listed in columns
+
+
+
+
+
+
+# Comparing Plots:
+
+install.packages("cowplot")
+(library(cowplot))
+plot_grid(avocado_plot, priciest_plot, ncol = 1)
+# first arguments are plots to be compared, then we can call ncol and/or nrow to establish
+# the number of rows/columns in our plot grid
+
+
+
+
+
+
+
+# Colors:
+#  - for the fill aesthetic with a categorical variable:
+#       + scale_fill_brewer(palette = '...')
+
+#  - for the fill aesthetic with a numerical variable:
+#       + scale_fill_distiller(palette = '...')
+
+
+
+
+
+
+
+# Saving Visualizations:
+
+install.packages("svglite")
+library(svglite)  # we need this to be able to save visualizations
+
+students <- read_csv("data/StudentsPerformance.csv")
+students_plot <- students |> ggplot(aes(x = `parental level of education`, fill = gender)) +
+  geom_bar() +
+  labs(x = "Parental Level of Education",
+       y = "Number of People",
+       fill = "Gender",
+       title = "Parental Level of Education for Students") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "OrRd")
+
+ggsave("data/students_plot.png", students_plot)
+
+# '.png' extension can also be changed to '.jpg', etc
 
 
 
