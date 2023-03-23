@@ -146,15 +146,14 @@ predictions_with_test_data
 # Computing the Accuracy:
 
 predictions_with_test_data |>
-  metrics(truth = diagnosis, estimate = .pred_class)
-# truth = diagnosis         means that the diagnosis column has the actual classifications
-# estimate = .pred_class    means that the .pred_class columns has the predicted classifications
-
-predictions_with_test_data |>
   metrics(truth = diagnosis, estimate = .pred_class) |>
   filter(.metric == "accuracy") |>
   pull(.estimate)
-# we add this filter line so we only have the accuracy row
+
+# truth = diagnosis         means that the diagnosis column has the actual classifications
+# estimate = .pred_class    means that the .pred_class columns has the predicted classifications
+
+# we add the filter line so we only have the accuracy row
 # we can also use pull() to get the accuracy % by itself
 
 
@@ -348,11 +347,11 @@ cancer_k_plot
 
 # Under vs Over Fitting:
 
-# under fitting: when the model isn't influenced enough by the data
+# under fitting: when the model isn't impacted enough by the data
 #   - too big of a K value
 #   - ex. K = 300
 
-# over fitting: when the model is influenced too much by the data
+# over fitting: when the model is impacted too much by the data
 #   - too small of a K value
 #   - ex. K = 1
 
@@ -380,5 +379,27 @@ cancer_k_plot
 # 6) create model w/ best K
 
 # 7) evaluate accuracy on test set
+
+
+
+
+
+
+
+
+
+
+# Strengths:
+
+#   - is a simple, intuitive algorithm
+#   - requires few assumptions about what the data must look like]
+#   - works for binary (two-class) and multi-class (more than 2 classes) classification problems.
+
+
+# Weaknesses:
+
+#   - becomes very slow as the training data gets larger
+#   - may not perform well with a large number of predictors
+#   - may not perform well when classes are imbalanced
 
 

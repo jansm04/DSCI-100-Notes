@@ -115,6 +115,7 @@ sacr_results <- workflow() |>
   collect_metrics() |>
   filter(.metric == "rmse")
 sacr_results
+# since were working on the training data, this would be RMSE
 
 sacr_min <- sacr_results |> filter(mean == min(mean))
 k_min <- sacr_min |> pull(neighbors)
@@ -136,8 +137,11 @@ sacr_fit <- workflow() |>
 predictions <- predict(sacr_fit, sacramento_testing) |>
   bind_cols(sacramento_testing) |>
   metrics(truth = price, estimate = .pred) |>
-  filter(.metric == "rmse")
+  filter(.metric == "rmse") |>
+  pull(.estimate)
 predictions
+# make sure to have .pred NOT .pred_class
+# since were working on the testing data, this would be RMSPE
 
 
 
@@ -147,6 +151,17 @@ predictions
 
 
 
+# Strengths
+
+#   - is a simple, intuitive algorithm
+#   - does not require many assumptions about what the data might look like
+#   - good for non linear relationships
+
+# Weaknesses
+
+#   - slow as data gets bigger
+#   - performs poorly for large number of predictors
+#   - predicts poorly beyond range of values inputted in data
 
 
 
